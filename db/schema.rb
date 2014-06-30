@@ -11,7 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140627200304) do
+ActiveRecord::Schema.define(version: 20140630184715) do
+
+  create_table "courses", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "plans", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  create_table "term_courses", force: true do |t|
+    t.integer  "term_id"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "term_courses", ["course_id"], name: "index_term_courses_on_course_id"
+  add_index "term_courses", ["term_id"], name: "index_term_courses_on_term_id"
+
+  create_table "terms", force: true do |t|
+    t.integer  "plan_id"
+    t.string   "semester"
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "terms", ["plan_id"], name: "index_terms_on_plan_id"
 
   create_table "users", force: true do |t|
     t.string   "login",                  default: "", null: false
